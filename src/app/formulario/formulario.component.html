@@ -1,0 +1,49 @@
+<form #formulario="ngForm" (ngSubmit)="submit(formulario)">
+  <div ngModelGroup="algo" #algo="ngModelGroup">
+    <div class="form-group">
+      <label for="firstName">FirstName</label>
+      <input 
+        required 
+        minlength="3" 
+        pattern="goku" 
+        [(ngModel)]="vare" 
+        name="firstName" 
+        id="firstName" 
+        #firstName="ngModel" 
+        (change)="log(firstName)" 
+        type="text" 
+        class="form-control">
+      <div 
+        class="alert alert-danger" 
+        *ngIf="firstName.touched && !firstName.valid">
+        <div *ngIf="firstName.errors.required">
+          El primer nombre es requerido
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+          Debe haber 3 caracteres como mínimo
+        </div>
+        <div *ngIf="firstName.errors.pattern">
+          El primer nombre no concuerda con el patron
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea required ngModel #comment="ngModel" name="comment" id="comment" cols="30" rows="10" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">        
+        <label> 
+          <input type="checkbox" ngModel name="isSuscribed">    
+        </label>
+      </div>
+      <select ngModel name="contactMethod" id="contactMethod" class="form-control">
+        <option *ngFor="let item of lista" [ngValue]="item">{{item.name}}</option>
+      </select>
+      <p>
+        {{ formulario.value | json }}
+      </p>
+      
+      <button [disabled]="formulario.invalid" class="btn btn-primary">Submit</button>   
+    </div>
+  </div>  
+</form>
